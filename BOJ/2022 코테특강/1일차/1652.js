@@ -1,31 +1,31 @@
 const fs = require("fs");
 const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
-let input = fs.readFileSync(filePath).toString().trim().split("\n");
+let [N, ...input] = fs.readFileSync(filePath).toString().trim().split("\n");
 
-const N = +input[0];
-const data = input.slice(1);
+N = +N;
+const arr = input.map((item) => item.split(""));
 
-function solution(N, datas) {
+function solution(N, arr) {
     let rowCnt = 0,
         colCnt = 0;
 
-    for (var i = 0; i < N; i++) {
-        for (var j = 0; j < N - 1; j++) {
-            if (data[i][j] === "." && data[i][j] === data[i][j + 1]) {
+    for (let i = 0; i < N; i++) {
+        for (let j = 0; j < N - 1; j++) {
+            if (arr[i][j] === "." && arr[i][j] === arr[i][j + 1]) {
                 rowCnt++;
-                for (var k = j + 1; k < N; k++, j++) {
-                    if (data[i][k] === "X") break;
+                for (let k = j + 1; k < N; k++, j++) {
+                    if (arr[i][k] === "X") break;
                 }
             }
         }
     }
 
-    for (var y = 0; y < N; y++) {
-        for (var x = 0; x < N - 1; x++) {
-            if (data[x][y] === "." && data[x][y] === data[x][y + 1]) {
+    for (let i = 0; i < N; i++) {
+        for (let j = 0; j < N - 1; j++) {
+            if (arr[j][i] === "." && arr[j][i] === arr[j + 1][i]) {
                 colCnt++;
-                for (var z = x + 1; z < N; z++, x++) {
-                    if (data[z][i] === "X") break;
+                for (let k = j + 1; k < N; k++, j++) {
+                    if (arr[k][i] === "X") break;
                 }
             }
         }
@@ -34,4 +34,4 @@ function solution(N, datas) {
     console.log(rowCnt, colCnt);
 }
 
-solution(N, data);
+solution(N, arr);
